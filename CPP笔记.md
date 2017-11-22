@@ -87,7 +87,7 @@
 
 * 将子类赋值给父类，会**丢失**子类派生的属性（不同于java可以重新转换回来）
   * 这里应该用 **指针** 进行操作（或者引用）
-  *  `A *p_a = &b;`
+  * `A *p_a = &b;`
 * Early Binding
   * 依据对象类型静态调用
 * Late Binding
@@ -129,4 +129,50 @@
   `p->g(); //A::g`
   `p->h(); //A::h, B::f, A::g`
 
+### 私有继承
+
+私有继承的
+
+* 第一个规则：和公有继承相反，如果两个类之间的继承关系为私有，编译器一般**不会将派生类对象转换成基类对象**。
+* 第二个规则: 从私有基类继承而来的成员都成为了派生类的私有成员，即使它们在基类中是保护或公有成员
+
+
+### 操作符重载
+
+* 不能重载 `. -> :: `
+
+* 永远不要重载 && 和 ||
+
+  * 失去**短路功能**，引发许多空指针错
+
+* 前++和后++
+
+  * `<ret> operator ++()`
+  * `<ret> operator ++(int)`  dummy argument
+
+* 赋值操作符重载不能继承
+
+  * 子类的新成员无法被操作
+
+* 赋值操作可能出现 **自我赋值 **
+
+* object identity
+
+  * same memory location
+
+* `char& operator [](int i) { return p[i]; }`
+
+  `const char operator [] (int i) const { return p[i]; }` 
+
+  * 不允许 `s[i]='D';`
+
+* 类型转换操作符
+
+  * `operator double() { return (double)n/d; } `
+
+* 智能指针重载
+
+* ![smart-point](img/smart-point.png)
+
 * ​
+
